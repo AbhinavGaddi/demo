@@ -5,13 +5,11 @@ import com.example.demo.mapper.AuthMapper;
 import com.example.demo.model.Users;
 import com.example.demo.schema.LoginDto;
 import com.example.demo.schema.RegistrationDto;
-import com.example.demo.schema.UnlockDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 @Service
@@ -44,7 +42,7 @@ public class AuthService {
     @Transactional
     public String login(@Valid LoginDto loginDto) {
         Optional<Users> users = dataInterface.findByuserName(loginDto.getUserName());
-        if(!users.isPresent()){
+        if(users.isEmpty()){
             return "Invalid Username";
         }
         Users user = users.get();
